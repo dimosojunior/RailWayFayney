@@ -1,0 +1,121 @@
+{% load get_group %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+
+ <!--HII NI KWA AJILI YA ICONS ZOTE--->
+ <link href="{% static 'main/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+
+    
+
+         <!---jqeury css link---->
+     <link rel="stylesheet" href="{% static 'main/jqueryui/jquery-ui.css' %}">
+    <link rel="stylesheet" href="{% static 'main/jqueryui/jquery-ui.structure.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/jqueryui/jquery-ui.structure.css' %}">
+    <link rel="stylesheet" href="{% static 'main/jqueryui/jquery-ui.theme.min.css' %}">
+     <link rel="stylesheet" href="{% static 'main/jqueryui/jquery-ui.theme.css' %}">
+
+ <!-- Vendor CSS Files ----->
+    <link href="{% static 'main/css/animate.min.css' %}" rel="stylesheet">
+    
+    <link href="{% static 'main/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'main/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  
+    <link href="{% static 'main/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+    <title>Restaurant Management System</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background:linear-gradient(#141e30, #243b55);position: fixed;z-index: 1;width: 100%; ">
+        <a class="navbar-brand" href="/"><h3><span style="color: red;font-size: 16px;">
+         {% if user.is_authenticated %} Welcome {{user.username}} {% endif %} &nbsp;</span> Restaurant Management System</h3></a>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                    <li ><a href="{% url 'main:home' %}" class="mr-2 text-light" style="float: right;padding: 20px;font-size: 20px;text-decoration: none;">Home</a></li>
+
+                    <li><a href="{% url 'main:add_item' %}" class="mr-2 text-light" style="float: right;padding: 20px;font-size: 20px;text-decoration: none;">Add Food</a></li>
+
+                {% if user.is_authenticated %}
+                    {% if request.user|has_group:"admin_owner" %} 
+                        <li><a href="{% url 'main:admin_dashboard' %}" class="mr-2 text-light">DashBoard</a></li>
+                        <li>
+                            <form class="logout-link" action="{% url 'accounts:logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="mr-2">Logout</button>
+                            </form>
+                        </li> 
+                    {% else %}
+                       <!--  <li><a href="{% url 'main:cart' %}" class="mr-2 text-light">My Cart🛒</a></li>
+                        <li><a href="{% url 'main:order_details' %}" class="mr-2 text-light">Your Orders</a></li> -->
+                        <li style="float: right;padding: 20px;font-size: 20px;text-decoration: none;">
+                            <form class="logout-link" action="{% url 'accounts:logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="mr-2">Logout</button>
+                            </form>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li><a href="{% url 'accounts:login' %}" class="mr-2 text-light" style="float: right;padding: 20px;font-size: 20px;text-decoration: none;">Login</a></li>
+                    <li><a href="{% url 'accounts:signup' %}" class="mr-2 text-light" style="float: right;padding: 20px;font-size: 20px;text-decoration: none;">SignUp</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+<div style="margin-bottom: 2cm;color: white;">
+    FAYNEY
+</div>
+
+
+
+
+
+
+    <main role="main">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+    
+<script src="{% static 'main/js/bootstrap.min.js' %}"></script>
+
+ <!--jquery code for autocomplete javascriptcode---->
+<script src="{% static 'main/jqueryui/external/jquery/jquery.js' %}" type="text/javascript"></script>
+<script src="{% static 'main/jqueryui/jquery-ui.js' %}" type="text/javascript"></script>
+
+
+
+
+   
+
+    <!-- ------------ AOS js Library  ------------------------- -->
+    <script src="{% static 'main/js/aos.js' %}"></script>
+
+    <script>
+        $('.carousel').carousel();
+    </script>

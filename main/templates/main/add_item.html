@@ -1,0 +1,44 @@
+{% extends "main/layout.html" %}
+{% block content %}
+    
+<style type="text/css">
+  input{
+    width: 40%;
+    padding: 10px;
+    border-radius: 10px;
+
+  }
+  select{
+    width: 40%;
+    padding: 10px;
+    border-radius: 10px;
+
+  }
+
+</style>
+
+
+<center><h1>Add Food</h1></center>
+
+
+<center>
+
+  <form method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    {{form.as_p}}
+
+
+<input type="submit" class="btn-primary" value="Add Food" name="" style="font-size: 20px;width: 20%;margin-bottom: 2cm;">
+
+
+    </form>
+
+
+</center>
+
+
+
+
+{% endblock content %}
